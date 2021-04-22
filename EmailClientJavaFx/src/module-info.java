@@ -5,4 +5,5 @@ module EmailClientJavaFx {
     requires javafx.web;
 
     opens com.pieter;
+    opens com.pieter.view;
 }
