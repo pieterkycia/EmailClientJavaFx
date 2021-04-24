@@ -7,10 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="214.0" prefWidth="391.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Slider fx:id="fontSizePicker" layoutX="126.0" layoutY="69.0" prefHeight="14.0" prefWidth="237.0" />
+      <Slider fx:id="fontSizePicker" layoutX="126.0" layoutY="69.0" prefHeight="14.0" prefWidth="237.0" styleClass="big" />
       <ChoiceBox fx:id="themePicker" layoutX="126.0" layoutY="104.0" prefHeight="25.0" prefWidth="237.0" />
       <Label layoutX="23.0" layoutY="69.0" text="Font size" />
       <Label layoutX="23.0" layoutY="109.0" text="Color theme" />
