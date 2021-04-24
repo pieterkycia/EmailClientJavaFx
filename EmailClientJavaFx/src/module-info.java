@@ -6,4 +6,5 @@ module EmailClientJavaFx {
 
     opens com.pieter;
     opens com.pieter.view;
+    opens com.pieter.controller;
 }
