@@ -1,4 +1,4 @@
-package com.pieter.view;
+package com.pieter.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
