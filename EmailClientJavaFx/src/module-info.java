@@ -3,6 +3,8 @@ module EmailClientJavaFx {
     requires javafx.controls;
     requires javafx.graphics;
     requires javafx.web;
+    requires activation;
+    requires java.mail;
 
     opens com.pieter;
     opens com.pieter.view;
