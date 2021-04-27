@@ -1,6 +1,7 @@
 package com.pieter.controller;
 
 import com.pieter.EmailManager;
+import com.pieter.controller.services.MessageRendererService;
 import com.pieter.model.EmailMessage;
 import com.pieter.model.EmailTreeItem;
 import com.pieter.model.SizeInteger;
@@ -49,6 +50,8 @@ public class MainWindowController extends BaseController implements Initializabl
     @FXML
     private WebView emailWebView;
 
+    private MessageRendererService messageRendererService;
+
     @FXML
     void optionsAction() {
         viewFactory.showOptionsWindow();
@@ -65,6 +68,22 @@ public class MainWindowController extends BaseController implements Initializabl
         setUpEmailsTableView();
         setUpFolderSelection();
         setUpBoldRows();
+        setUpMessageRendererService();
+        setUpMessageSelection();
+    }
+
+    private void setUpMessageSelection() {
+        emailsTableView.setOnMouseClicked(event -> {
+            EmailMessage emailMessage = emailsTableView.getSelectionModel().getSelectedItem();
+            if (emailMessage != null) {
+                messageRendererService.setEmailMessage(emailMessage);
+                messageRendererService.restart();
+            }
+        });
+    }
+
+    private void setUpMessageRendererService() {
+        messageRendererService = new MessageRendererService(emailWebView.getEngine());
     }
 
     private void setUpBoldRows() {
