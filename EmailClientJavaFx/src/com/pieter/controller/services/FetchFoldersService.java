@@ -10,15 +10,18 @@ import javax.mail.Store;
 import javax.mail.event.MessageCountAdapter;
 import javax.mail.event.MessageCountEvent;
 import javax.mail.event.MessageCountListener;
+import java.util.List;
 
 public class FetchFoldersService extends Service<Void> {
 
     private Store store;
     private EmailTreeItem<String> foldersRoot;
+    private List<Folder> folderList;
 
-    public FetchFoldersService(Store store, EmailTreeItem<String> foldersRoot) {
+    public FetchFoldersService(Store store, EmailTreeItem<String> foldersRoot, List<Folder> folderList) {
         this.store = store;
         this.foldersRoot = foldersRoot;
+        this.folderList = folderList;
     }
 
     @Override
@@ -39,6 +42,7 @@ public class FetchFoldersService extends Service<Void> {
 
     private void handleFolders(Folder[] folders, EmailTreeItem<String> foldersRoot) throws MessagingException {
         for (Folder folder : folders) {
+            folderList.add(folder);
             EmailTreeItem<String> emailTreeItem = new EmailTreeItem<String>(folder.getName());
             foldersRoot.getChildren().add(emailTreeItem);
             foldersRoot.setExpanded(true);
