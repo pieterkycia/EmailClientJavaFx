@@ -5,18 +5,25 @@ import com.pieter.controller.services.FolderUpdaterService;
 import com.pieter.model.EmailAccount;
 import com.pieter.model.EmailMessage;
 import com.pieter.model.EmailTreeItem;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import javax.mail.Flags;
 import javax.mail.Folder;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.mail.Flags.*;
+import static javax.mail.Flags.Flag;
 
 public class EmailManager {
 
     private EmailMessage selectedMessage;
     private EmailTreeItem<String> selectedFolder;
+    private ObservableList<EmailAccount> emailAccounts = FXCollections.observableArrayList();
+
+    public ObservableList<EmailAccount> getEmailAccounts() {
+        return emailAccounts;
+    }
 
     public EmailMessage getSelectedMessage() {
         return selectedMessage;
@@ -54,6 +61,7 @@ public class EmailManager {
     }
 
     public void addEmailAccount(EmailAccount emailAccount) {
+        emailAccounts.add(emailAccount);
         EmailTreeItem<String> emailTreeItem = new EmailTreeItem<String>(emailAccount.getAddress());
         FetchFoldersService fetchFoldersService = new FetchFoldersService(emailAccount.getStore(), emailTreeItem, folderList);
         fetchFoldersService.start();
