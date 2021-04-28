@@ -1,12 +1,20 @@
 package com.pieter.controller;
 
 import com.pieter.EmailManager;
+import com.pieter.controller.services.EmailSenderService;
+import com.pieter.model.EmailAccount;
 import com.pieter.view.ViewFactory;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.web.HTMLEditor;
+import javafx.stage.Stage;
 
-public class ComposeMessageWindowController extends BaseController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class ComposeMessageWindowController extends BaseController implements Initializable {
 
     public ComposeMessageWindowController(EmailManager emailManager, ViewFactory viewFactory, String fxmlName) {
         super(emailManager, viewFactory, fxmlName);
@@ -25,8 +33,37 @@ public class ComposeMessageWindowController extends BaseController {
     private Label errorLabel;
 
     @FXML
+    private ChoiceBox<EmailAccount> emailAccountChoice;
+
+    @FXML
     void sendButtonAction() {
-        System.out.println(htmlEditor.getHtmlText());
-        System.out.println("send button!");
+        EmailSenderService emailSenderService = new EmailSenderService(
+                emailAccountChoice.getValue(),
+                subjectTextField.getText(),
+                recipientTextField.getText(),
+                htmlEditor.getHtmlText()
+        );
+        emailSenderService.start();
+        emailSenderService.setOnSucceeded(event -> {
+            EmailSendingResult emailSendingResult = emailSenderService.getValue();
+            switch (emailSendingResult) {
+                case SUCCESS:
+                    Stage stage = (Stage) (recipientTextField.getScene().getWindow());
+                    viewFactory.closeStage(stage);
+                    break;
+                case FAILED_BY_PROVIDER:
+                    errorLabel.setText("Provider error");
+                    break;
+                case FAILED_BY_UNEXPECTED_ERROR:
+                    errorLabel.setText("Unexpected error");
+                    break;
+            }
+        });
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        emailAccountChoice.setItems(emailManager.getEmailAccounts());
+        emailAccountChoice.setValue(emailManager.getEmailAccounts().get(0));
     }
 }
