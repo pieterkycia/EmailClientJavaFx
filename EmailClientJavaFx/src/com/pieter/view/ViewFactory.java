@@ -1,10 +1,7 @@
 package com.pieter.view;
 
 import com.pieter.EmailManager;
-import com.pieter.controller.BaseController;
-import com.pieter.controller.LoginWindowController;
-import com.pieter.controller.MainWindowController;
-import com.pieter.controller.OptionsWindowController;
+import com.pieter.controller.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -67,6 +64,13 @@ public class ViewFactory {
         System.out.println("Show options window");
 
         BaseController controller = new OptionsWindowController(emailManager, this, "OptionsWindow.fxml");
+        initializeStage(controller);
+    }
+
+    public void showComposeMessageWindow() {
+        System.out.println("Show compose message window");
+
+        BaseController controller = new ComposeMessageWindowController(emailManager, this, "ComposeMessageWindow.fxml");
         initializeStage(controller);
     }
 
