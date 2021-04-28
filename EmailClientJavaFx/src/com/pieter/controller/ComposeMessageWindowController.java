@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.web.HTMLEditor;
 import javafx.stage.Stage;
 
@@ -21,10 +22,10 @@ public class ComposeMessageWindowController extends BaseController implements In
     }
 
     @FXML
-    private Label recipientTextField;
+    private TextField recipientTextField;
 
     @FXML
-    private Label subjectTextField;
+    private TextField subjectTextField;
 
     @FXML
     private HTMLEditor htmlEditor;
