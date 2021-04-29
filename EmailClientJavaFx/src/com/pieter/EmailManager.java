@@ -5,6 +5,7 @@ import com.pieter.controller.services.FolderUpdaterService;
 import com.pieter.model.EmailAccount;
 import com.pieter.model.EmailMessage;
 import com.pieter.model.EmailTreeItem;
+import com.pieter.view.IconResolver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -20,6 +21,7 @@ public class EmailManager {
     private EmailMessage selectedMessage;
     private EmailTreeItem<String> selectedFolder;
     private ObservableList<EmailAccount> emailAccounts = FXCollections.observableArrayList();
+    private IconResolver iconResolver = new IconResolver();
 
     public ObservableList<EmailAccount> getEmailAccounts() {
         return emailAccounts;
@@ -63,6 +65,7 @@ public class EmailManager {
     public void addEmailAccount(EmailAccount emailAccount) {
         emailAccounts.add(emailAccount);
         EmailTreeItem<String> emailTreeItem = new EmailTreeItem<String>(emailAccount.getAddress());
+        emailTreeItem.setGraphic(iconResolver.getIconFolder(emailAccount.getAddress()));
         FetchFoldersService fetchFoldersService = new FetchFoldersService(emailAccount.getStore(), emailTreeItem, folderList);
         fetchFoldersService.start();
         foldersRoot.getChildren().add(emailTreeItem);
