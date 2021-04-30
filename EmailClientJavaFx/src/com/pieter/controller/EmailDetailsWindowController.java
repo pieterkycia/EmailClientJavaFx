@@ -115,11 +115,11 @@ public class EmailDetailsWindowController extends BaseController implements Init
             });
         }
         private void colorBlue() {
-            this.setStyle("fx-background-color: Blue");
+            this.setStyle("-fx-background-color: Blue");
         }
 
         private void colorGreen() {
-            this.setStyle("fx-background-color: Green");
+            this.setStyle("-fx-background-color: Green");
         }
     }
 }
