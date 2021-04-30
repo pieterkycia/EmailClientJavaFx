@@ -46,30 +46,27 @@ public class ViewFactory {
     }
 
     public void showLoginWindow() {
-        System.out.println("Show login window");
-
         BaseController controller = new LoginWindowController(emailManager, this, "LoginWindow.fxml");
         initializeStage(controller);
     }
 
     public void showMainWindow() {
-        System.out.println("Show main window");
-
         BaseController controller = new MainWindowController(emailManager, this, "MainWindow.fxml");
         initializeStage(controller);
         mainViewInitialized = true;
     }
 
     public void showOptionsWindow() {
-        System.out.println("Show options window");
-
         BaseController controller = new OptionsWindowController(emailManager, this, "OptionsWindow.fxml");
         initializeStage(controller);
     }
 
-    public void showComposeMessageWindow() {
-        System.out.println("Show compose message window");
+    public void showEmailDetailsWindow() {
+        BaseController controller = new EmailDetailsWindowController(emailManager, this, "EmailDetailsWindow.fxml");
+        initializeStage(controller);
+    }
 
+    public void showComposeMessageWindow() {
         BaseController controller = new ComposeMessageWindowController(emailManager, this, "ComposeMessageWindow.fxml");
         initializeStage(controller);
     }
